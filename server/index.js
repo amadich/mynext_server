@@ -4,7 +4,13 @@ const cors = require("cors");
 const database = require("./models/database");
 database();
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://mynextclientmaster.vercel.app',
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 
 app.use("/createone", require("./routes/Register"));
