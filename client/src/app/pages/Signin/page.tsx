@@ -15,10 +15,17 @@ function Signin() {
 
       Axios.post("https://mynextservermaster.vercel.app/createone/me", {email , password})
       .then((response) => {
-         window.localStorage.setItem("token",response.data.token);
-         setCookies("mysystem", response.data.token);
-         console.log(response.data);
-         window.location.href = "/";
+        const token = response.data?.token;
+         if (token) {
+            window.localStorage.setItem("token",response.data.token);
+            setCookies("mysystem", response.data.token);
+            console.log(response.data);
+            window.location.href = "/";
+         }
+
+         else {
+            alert(response.data.message);
+         }
          
       })
       .catch((e) => {
