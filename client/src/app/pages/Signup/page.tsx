@@ -25,11 +25,17 @@ function SignUp() {
             
             Axios.post("https://mynextservermaster.vercel.app/createone", {email , password , avatar : myUUID})
             .then((response) => {
-               alert("Complete Sucssefull : " + myUUID);
-               console.log(response.data);
-               window.localStorage.setItem("token",response.data.token);
-               setCookies("mysystem",response.data.token);
-               window.location.href = "/";
+               const token = response.data?.token;
+               if (token) {
+                  alert("Complete Sucssefull : " + myUUID);
+                  console.log(response.data);
+                  window.localStorage.setItem("token",response.data.token);
+                  setCookies("mysystem",response.data.token);
+                  window.location.href = "/";
+               }
+               else {
+                  alert(response.data.message);
+               }
                
             }).catch((e) => {console.log(`Axios Error : `,e);
             })
