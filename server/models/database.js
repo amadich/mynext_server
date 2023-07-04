@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const database_url = `mongodb+srv://amadich:7001295@shop.asc9xzs.mongodb.net/kora`;
+const database_url = process.env.DBMONGO;
 const database = () => {
    mongoose.connect(database_url)
    .then(() => {
