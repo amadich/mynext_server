@@ -6,11 +6,12 @@ database();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://mynextclientmaster.vercel.app',
-  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: ['https://mynextclientmaster.vercel.app', 'https://www.getpostman.com'],
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+
 
 
 app.use("/createone", require("./routes/Register"));
