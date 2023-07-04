@@ -14,7 +14,8 @@ router.post("/" , async (req , res) => {
       const hashPwd = bcrypt.hashSync(password, 10);
 
      
-      const newaccunet = new UserModel({email , password : hashPwd , avatar})
+      const time = new Date(Date.now()).getMonth() + " / " + new Date(Date.now()).getDate() + " / " + new Date(Date.now()).getFullYear() + " / " + new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
+      const newaccunet = new UserModel({email , password : hashPwd , avatar , dateCreate: time})
       await newaccunet.save();
 
       const payload = { id: newaccunet._id, email: newaccunet.email , password : hashPwd , avatar };
