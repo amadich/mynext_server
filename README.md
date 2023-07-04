@@ -1,6 +1,7 @@
 # Get a login system with NextJS development. In this project, you can connect to databases using cors & routes & MongoDB
 ###
-![image](https://github.com/amadich/mynext_server/assets/74735976/72f40c90-571f-4804-ade0-64232611e239)
+![image](https://github.com/amadich/mynext_server/assets/74735976/f2a716ab-4689-4c1c-a71b-deb1aea4ae63)
+
 # I also used Jsonwebtoken & Cookies in this project
 ![image](https://github.com/amadich/mynext_server/assets/74735976/02bff472-5a66-4e2d-9d13-e0468f01fd66)
 
@@ -64,4 +65,46 @@ After Export The Router dont Forget to use it in Server.js (index.js) :
 app.use("/createone", require("./routes/Register"));
 
 ```
+
+# FireBase Deploy Images + Axios to Post Information : 
+UUID it's ID or a ( Tag name ) for Image
+
+First Import Packs : 
+
+```tsx
+import { storage } from "../../firebase";
+import { v4 } from "uuid";
+import { ref, uploadBytes } from "firebase/storage";
+import Axios from "axios";
+import {useCookies} from "react-cookie";
+```
+# Function -> 
+```tsx
+const handupload = (e : FormEvent) => {
+         e.preventDefault();
+         if (avatar == null) return;
+
+         let myUUID = v4();
+         const photoRef = ref(storage, `avatars/${myUUID}`);
+         uploadBytes(photoRef,avatar)
+         .then(() => {
+            
+            Axios.post("https://mynextservermaster.vercel.app/createone", {email , password , avatar : myUUID})
+            .then((response) => {
+               alert("Complete Sucssefull : " + myUUID);
+               console.log(response.data);
+               window.localStorage.setItem("token",response.data.token);
+               setCookies("mysystem",response.data.token);
+               window.location.href = "/";
+               
+            }).catch((e) => {console.log(`Axios Error : `,e);
+            })
+
+            
+         }).catch((e) => {console.log(e);
+         })
+
+   }
+```
+
 # Thanks , Don't Forget to ADD Star ⭐
